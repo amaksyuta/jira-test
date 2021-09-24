@@ -1,3 +1,3 @@
 #!/bin/bash
 echo "TEST"
-echo "[PARAM]: $1"
+echo "[Info]: $1"
