@@ -1,4 +1,4 @@
 #!/bin/bash
-echo "TEST"
+echo "TEST1"
 echo "[Info]: $1"
 echo "NEW line ssss"
