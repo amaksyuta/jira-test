@@ -32,19 +32,19 @@ def main(message):
     commitMessage = commitMessageFile.read().strip()
 
     if branch.name == "main":
-        print("[INFO]: Ready to commit the change in master")
-        sys.exit(0)
-
-    if len(commitMessage) < requiredLength:
-        print("[ERROR]: Commit message is less than the required 15 characters.")
-        sys.exit(1)
-
-    if not re.match(requiredRegex, commitMessage):
-        sys.stderr.write("\n[ERROR]: Your commit message subject line does not follow the guideline\n")
-        sys.stderr.write("\n - Refer commit guideline: {}\n\n".format(guidelineUrl))
-        sys.exit(1)
+        print("[INFO]: Checking commit message in main branch")
+        if len(commitMessage) < requiredLength:
+            print("[ERROR]: Commit message is less than the required 15 characters.")
+            sys.exit(1)
+        if not re.match(requiredRegex, commitMessage):
+            sys.stderr.write("\n[ERROR]: Your commit message subject line does not follow the guideline\n")
+            sys.stderr.write("\n - Refer commit guideline: {}\n\n".format(guidelineUrl))
+            sys.exit(1)
+        else:
+            print("[INFO]: Commit message is validated")
+            sys.exit(0)
     else:
-        print("[INFO]: Commit message is validated")
+        print("\n[WARNING]: Do not validate current branch:", branch.name)
         sys.exit(0)
             
     
