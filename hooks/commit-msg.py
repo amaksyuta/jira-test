@@ -9,6 +9,19 @@ Check commit message according to guidelines
 import git
 import sys, re, subprocess
 
+def validateCommitMessage(message, requiredLength, requiredRegex, guidelineUrl):
+    """ Validate commit message """
+    if len(message) < requiredLength:
+        print("\n[ERROR]: Commit message is less than the required 15 characters.")
+        sys.exit(1)
+    if not re.match(requiredRegex, message):
+        sys.stderr.write("\n[ERROR]: Your commit message subject line does not follow the guideline\n")
+        sys.stderr.write("\n - Refer commit guideline: {}\n\n".format(guidelineUrl))
+        sys.exit(1)
+    else:
+        print("\n[INFO]: Commit message is validated")
+        sys.exit(0)
+
 def main(message):
     """Main function."""
     #Required parts
@@ -33,22 +46,17 @@ def main(message):
 
     if branch.name == "main":
         print("[INFO]: Checking commit message in main branch")
-        if len(commitMessage) < requiredLength:
-            print("[ERROR]: Commit message is less than the required 15 characters.")
-            sys.exit(1)
-        if not re.match(requiredRegex, commitMessage):
-            sys.stderr.write("\n[ERROR]: Your commit message subject line does not follow the guideline\n")
-            sys.stderr.write("\n - Refer commit guideline: {}\n\n".format(guidelineUrl))
-            sys.exit(1)
-        else:
-            print("[INFO]: Commit message is validated")
-            sys.exit(0)
+        validateCommitMessage(commitMessage, requiredLength, requiredRegex, guidelineUrl)
+    elif branch.name == "master":
+        print("[INFO]: Checking commit message in master branch")
+        validateCommitMessage(commitMessage, requiredLength, requiredRegex, guidelineUrl)
+    elif branch.name == "release17.0":
+        print("[INFO]: Checking commit message in release17.0 branch")
+        validateCommitMessage(commitMessage, requiredLength, requiredRegex, guidelineUrl)
     else:
         print("\n[WARNING]: Do not validate current branch:", branch.name)
         sys.exit(0)
             
-    
-
 if __name__ == "__main__":
     main(sys.argv[1])
 
