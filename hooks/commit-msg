@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec < /dev/tty
+./hooks/commit-msg.py $1

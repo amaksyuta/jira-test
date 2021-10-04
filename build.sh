@@ -1,2 +1,4 @@
 #!/bin/bash
-echo "[PARAM]: $1"
+echo "TEST1"
+echo "[Info]: $1"
+echo "NEW line ssss"
